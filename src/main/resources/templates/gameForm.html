@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Rock-Paper-Scissors Game</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<section>
+  <div th:if="${game.moveResult != null}">
+    <div>
+      <span th:text="${game.engineChoice}">${game.engineChoice}</span> : <span th:text="${game.playerChoice}">${game.playerChoice}</span>
+    </div>
+    <div th:if="${game.moveResult eq T(info.yurtsevich.nobel.model.MoveResult).PLAYER_WINS}" style="color: green">
+      Congrats, you won!
+    </div>
+    <div th:if="${game.moveResult eq T(info.yurtsevich.nobel.model.MoveResult).ENGINE_WINS}" style="color: red">
+      Sorry, you lost
+    </div>
+    <div th:if="${game.moveResult eq T(info.yurtsevich.nobel.model.MoveResult).DRAW}">
+      Good try, but draw
+    </div>
+  </div>
+  <h1>Score <span th:text="${game.engineScore}">${game.engineScore}</span> : <span th:text="${game.playerScore}">${game.playerScore}</span></h1>
+  <p><span th:if="${game.moveResult != null}">Another turn? </span>Rock, paper, scissors... Make your choice:</p>
+  <form action="#" th:action="@{/game}" th:object="${game}" method="post">
+    <input type="hidden" th:field="*{engineScore}" >
+    <input type="hidden" th:field="*{playerScore}" >
+    <div>
+      <span>?</span> :
+      <button type="submit" name="playerChoice" th:value="${T(info.yurtsevich.nobel.model.Choice).ROCK}" th:text="${T(info.yurtsevich.nobel.model.Choice).ROCK}">${T(info.yurtsevich.nobel.model.Choice).ROCK}</button>
+      <button type="submit" name="playerChoice" th:value="${T(info.yurtsevich.nobel.model.Choice).PAPER}" th:text="${T(info.yurtsevich.nobel.model.Choice).PAPER}">${T(info.yurtsevich.nobel.model.Choice).PAPER}</button>
+      <button type="submit" name="playerChoice" th:value="${T(info.yurtsevich.nobel.model.Choice).SCISSORS}" th:text="${T(info.yurtsevich.nobel.model.Choice).SCISSORS}">${T(info.yurtsevich.nobel.model.Choice).SCISSORS}</button>
+    </div>
+  </form>
+</section>
+</body>
+</html>
